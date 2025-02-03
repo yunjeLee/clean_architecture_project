@@ -23,7 +23,9 @@ fun CoinListRoute(
         CoinListScreenStatus.Success -> {
             CoinListScreen(
                 state = state,
-                onItemClick = {}
+                onItemClick = {
+
+                }
             )
         }
         CoinListScreenStatus.Error -> {
