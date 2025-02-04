@@ -14,22 +14,6 @@ import javax.inject.Inject
 class GetCoinUseCase @Inject constructor(
   private val repository: CoinRepository
 ) {
-//    operator fun invoke(): Flow<UiState<List<CoinListModel>>> = flow {
-//        emit(UiState.Loading())
-//        repository.getCoins().collect { result ->
-//            when(result) {
-//                is Result.Success -> {
-//                    val data = result.data
-//                    emit(UiState.Success(data))
-//                }
-//                is Result.Error -> {
-//                    val error = result.error
-//                    emit(UiState.Error(error.mapErrorMessage()))
-//                }
-//            }
-//        }
-//    }
-
     suspend operator fun invoke(): Result<List<CoinListModel>> =
         repository.getCoins()
 }

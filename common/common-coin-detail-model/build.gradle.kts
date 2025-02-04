@@ -1,13 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kapt)
-//    alias(libs.plugins.ksp)
-//    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.android.domain_coin"
+    namespace = "com.example.common_coin_detail_model"
     compileSdk = 34
 
     defaultConfig {
@@ -43,12 +40,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(project(":common:common-util"))
-    implementation(project(":common:common-coin-detail-model"))
-
-    implementation(libs.dagger.hilt)
-    kapt(libs.dagger.hilt.compiler)
-//    ksp(libs.dagger.hilt.compiler)
-    implementation(libs.android.coroutines)
 }

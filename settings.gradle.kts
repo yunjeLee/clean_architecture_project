@@ -24,6 +24,7 @@ rootProject.name = "Clean Architecture Project"
 include(
     ":app",
     ":common:common-model",
+    ":common:common-coin-detail-model",
     ":common:common-util",
     ":data:data-coin",
     ":di:di-stock",
@@ -31,7 +32,5 @@ include(
     ":domain:domain-coin",
     ":domain:domain-stock",
     ":di:di-coin",
-    ":feature:feature-coin-list",
-    ":feature:feature-coin-detail"
+    ":feature:feature-coin"
 )
-include(":common:common-test")

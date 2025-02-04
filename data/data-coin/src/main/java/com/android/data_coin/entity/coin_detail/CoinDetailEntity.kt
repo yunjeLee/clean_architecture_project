@@ -15,7 +15,7 @@ data class CoinDetailEntity(
     @SerializedName("hash_algorithm")
     val hashAlgorithm: String,
     val id: String,
-    @SerializedName("isActive")
+    @SerializedName("is_active")
     val isActive: Boolean,
     @SerializedName("is_new")
     val isNew: Boolean,
