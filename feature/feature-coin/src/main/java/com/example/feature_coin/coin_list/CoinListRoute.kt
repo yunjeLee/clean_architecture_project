@@ -24,7 +24,15 @@ fun CoinListRoute(
     }
 
     coinListViewModel.collectSideEffect { sideEffect ->
+        when(sideEffect) {
+            CoinListScreenSideEffect.UnknownError -> {
+                // 에러에 대한 처리
 
+            }
+            CoinListScreenSideEffect.ApiError -> {
+                // 에러에 대한 처리
+            }
+        }
     }
 
     when(state.status) {
@@ -40,7 +48,7 @@ fun CoinListRoute(
             )
         }
         CoinListScreenStatus.Error -> {
-            CoinListErrorScreen(state = state)
+            CoinListErrorScreen()
         }
     }
 }

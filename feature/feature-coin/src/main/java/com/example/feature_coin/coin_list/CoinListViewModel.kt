@@ -2,14 +2,15 @@ package com.example.feature_coin.coin_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.common_util.Result
-import com.android.common_util.mapErrorMessage
+import com.android.common_util.ApiError
+import com.android.common_util.UnknownError
 import com.android.domain_coin.usecase.GetCoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
@@ -36,27 +37,29 @@ class CoinListViewModel @Inject constructor(
 
     private fun onFetch() = intent {
         viewModelScope.launch {
-            when(val response = getCoinUseCase.invoke()) {
-                is Result.Success -> {
-                    reduce {
-                        state.copy(
-                            status = CoinListScreenStatus.Success,
-                            coinList = response.data
-                        )
-                    }
+            try {
+                val response = getCoinUseCase.invoke()
+                reduce {
+                    state.copy(
+                        status = CoinListScreenStatus.Success,
+                        coinList = response
+                    )
                 }
-                is Result.Error -> {
-                    reduce {
-                        state.copy(
-                            status = CoinListScreenStatus.Error,
-                            errorText = response.error.mapErrorMessage()
-                        )
-                    }
+            } catch (t: Throwable) {
+                reduce { state.copy(status = CoinListScreenStatus.Error) }
+                when(t) {
+                    is UnknownError -> unknownErrorHandle()
+                    is ApiError -> apiErrorHandle()
                 }
             }
         }
     }
 
+    private fun unknownErrorHandle() = intent {
+        postSideEffect(CoinListScreenSideEffect.UnknownError)
+    }
 
-
+    private fun apiErrorHandle() = intent {
+        postSideEffect(CoinListScreenSideEffect.ApiError)
+    }
 }

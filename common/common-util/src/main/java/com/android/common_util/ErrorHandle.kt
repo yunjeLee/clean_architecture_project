@@ -41,3 +41,7 @@ fun ErrorType.mapErrorMessage() =
         is ErrorType.Api.Server -> "Retrofit Server Error"
         is ErrorType.Unknown -> "Unknown Error"
     }
+
+data class ApiError(val errorText: String): Exception(errorText)
+data class UnknownError(val errorText: String = "에러입니다."): Exception(errorText)
+

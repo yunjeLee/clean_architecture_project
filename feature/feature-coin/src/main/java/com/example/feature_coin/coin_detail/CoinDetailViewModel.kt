@@ -2,6 +2,7 @@ package com.example.feature_coin.coin_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.common_util.ApiError
 import com.android.common_util.Result
 import com.android.common_util.mapErrorMessage
 import com.android.domain_coin.model.coin_detail.CoinDetailModel
@@ -41,21 +42,21 @@ class CoinDetailViewModel @Inject constructor(
         coinId: String
     ) = intent {
         viewModelScope.launch {
-            when(val response = getCoinDetailUseCase.invoke(coinId)) {
-                is Result.Success -> {
-                    reduce {
-                        state.copy(
-                            status = CoinDetailScreenStatus.Success,
-                            data = response.data
-                        )
-                    }
+            try {
+                val data = getCoinDetailUseCase.invoke(coinId)
+                reduce {
+                    state.copy(
+                        status = CoinDetailScreenStatus.Success,
+                        data = data
+                    )
                 }
-                is Result.Error -> {
-                    reduce {
-                        state.copy(
-                            status = CoinDetailScreenStatus.Fail,
-                            errorText = response.error.mapErrorMessage()
-                        )
+            } catch (t: Throwable) {
+                when(t) {
+                    is UnknownError -> {
+
+                    }
+                    is ApiError -> {
+
                     }
                 }
             }

@@ -4,8 +4,7 @@ import com.android.domain_coin.model.coin_list.CoinListModel
 
 data class CoinListScreenState(
     val status: CoinListScreenStatus = CoinListScreenStatus.Loading,
-    val coinList: List<CoinListModel> = emptyList(),
-    val errorText: String = ""
+    val coinList: List<CoinListModel> = emptyList()
 ) {
     companion object {
         val init: CoinListScreenState = CoinListScreenState()
@@ -24,5 +23,6 @@ sealed interface CoinListScreenAction {
 }
 
 sealed interface CoinListScreenSideEffect {
-
+    object UnknownError: CoinListScreenSideEffect
+    object ApiError: CoinListScreenSideEffect
 }
