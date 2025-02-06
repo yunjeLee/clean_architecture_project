@@ -22,8 +22,6 @@ class CoinRepositoryImpl @Inject constructor(
         try {
             Result.Success(coinApi.getCoins().map { it.toCoinListModel() })
         } catch (e: Exception) {
-            // 서버에 에러 로그 찍기
-            errorLog(e.mapError().mapErrorMessage())
             Result.Error(e.mapError())
         }
 
@@ -31,8 +29,6 @@ class CoinRepositoryImpl @Inject constructor(
         try {
             Result.Success(coinApi.getCoinById(coinId).toCoinDetailModel())
         } catch (e: Exception) {
-            // 서버에 에러 로그 찍기
-            errorLog(e.mapError().mapErrorMessage())
             Result.Error(e.mapError())
         }
 }

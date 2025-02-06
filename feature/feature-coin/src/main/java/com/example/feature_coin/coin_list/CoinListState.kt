@@ -4,7 +4,8 @@ import com.android.domain_coin.model.coin_list.CoinListModel
 
 data class CoinListScreenState(
     val status: CoinListScreenStatus = CoinListScreenStatus.Loading,
-    val coinList: List<CoinListModel> = emptyList()
+    val coinList: List<CoinListModel> = emptyList(),
+    val searchCoinList: List<CoinListModel> = emptyList()
 ) {
     companion object {
         val init: CoinListScreenState = CoinListScreenState()
@@ -19,10 +20,13 @@ sealed interface CoinListScreenStatus {
 
 sealed interface CoinListScreenAction {
     object OnFetch: CoinListScreenAction
-    object ClickCoin: CoinListScreenAction
+    object OnReFetch: CoinListScreenAction
 }
 
 sealed interface CoinListScreenSideEffect {
     object UnknownError: CoinListScreenSideEffect
     object ApiError: CoinListScreenSideEffect
 }
+
+fun List<CoinListModel>.searchCoin(searchText: String): List<CoinListModel> =
+    filter { it.name.contains(searchText)  }

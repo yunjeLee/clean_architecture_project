@@ -31,12 +31,15 @@ fun CoinListItem(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
+            modifier = Modifier.weight(8f),
             text = "${coin.rank}. ${coin.name} (${coin.symbol}}",
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
-        Log.d("yunje", "list: ${coin.isActive}")
         Text(
-            modifier = Modifier.align(alignment = Alignment.CenterVertically),
+            modifier = Modifier
+                .weight(2f)
+                .align(alignment = Alignment.CenterVertically),
             text = if(coin.isActive) "active" else "inactive",
             color = if(coin.isActive) Color.Green else Color.Red,
             fontStyle = FontStyle.Italic,

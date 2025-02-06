@@ -1,5 +1,9 @@
 package com.example.feature_coin.coin_list
 
+import android.util.Log
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.common_util.ApiError
@@ -24,14 +28,14 @@ class CoinListViewModel @Inject constructor(
         CoinListScreenState.init
     )
 
+    val textState = TextFieldState()
+
     fun onAction(
         action: CoinListScreenAction
     ) {
         when(action) {
-            is CoinListScreenAction.OnFetch -> {
-                onFetch()
-            }
-            else -> {}
+            is CoinListScreenAction.OnFetch -> onFetch()
+            is CoinListScreenAction.OnReFetch -> onReFetch()
         }
     }
 
@@ -53,8 +57,41 @@ class CoinListViewModel @Inject constructor(
                 }
             }
         }
+        onCoinSearch()
     }
 
+    private fun onCoinSearch() = intent {
+        viewModelScope.launch {
+            snapshotFlow { textState.text }
+                .collect { text ->
+                    if(text.isNotEmpty() && text.isNotBlank()) {
+                        reduce {
+                            state.copy(searchCoinList = state.coinList.searchCoin(text.toString()))
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun onReFetch() = intent {
+        viewModelScope.launch {
+            try {
+                val response = getCoinUseCase.invoke()
+                reduce {
+                    state.copy(
+                        status = CoinListScreenStatus.Success,
+                        coinList = response,
+                    )
+                }
+            } catch (t: Throwable) {
+                reduce { state.copy(status = CoinListScreenStatus.Error) }
+                when(t) {
+                    is UnknownError -> unknownErrorHandle()
+                    is ApiError -> apiErrorHandle()
+                }
+            }
+        }
+    }
     private fun unknownErrorHandle() = intent {
         postSideEffect(CoinListScreenSideEffect.UnknownError)
     }

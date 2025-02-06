@@ -1,5 +1,6 @@
 package com.example.feature_coin.coin_list
 
+import androidx.compose.foundation.text.input.clearText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,7 +28,6 @@ fun CoinListRoute(
         when(sideEffect) {
             CoinListScreenSideEffect.UnknownError -> {
                 // 에러에 대한 처리
-
             }
             CoinListScreenSideEffect.ApiError -> {
                 // 에러에 대한 처리
@@ -42,9 +42,11 @@ fun CoinListRoute(
         CoinListScreenStatus.Success -> {
             CoinListScreen(
                 state = state,
+                textState = coinListViewModel.textState,
                 onItemClick = { coin ->
                     baseViewModel.onAction(CoinScreenAction.ShowDetail(coin.id))
-                }
+                },
+                onBack = { coinListViewModel.textState.clearText() }
             )
         }
         CoinListScreenStatus.Error -> {
