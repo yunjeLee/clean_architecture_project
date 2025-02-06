@@ -50,7 +50,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(project(":common:common-util"))
-    implementation(project(":common:common-coin-detail-model"))
     implementation(project(":domain:domain-coin"))
 
     implementation(libs.androidx.core.ktx)

@@ -1,7 +1,5 @@
 package com.example.feature_coin.coin_detail.component
 
-import android.graphics.fonts.FontStyle
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.example.common_coin_detail_model.CoinInfo
+import com.example.feature_coin.coin_detail.data.CoinInfo
 
 @Composable
 fun CoinInfoScreen(

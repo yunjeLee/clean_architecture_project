@@ -45,7 +45,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(project(":common:common-util"))
-    implementation(project(":common:common-coin-detail-model"))
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)

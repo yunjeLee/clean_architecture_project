@@ -59,7 +59,6 @@ android {
 dependencies {
     //common
     implementation(project(":common:common-model"))
-    implementation(project(":common:common-coin-detail-model"))
     implementation(project(":common:common-util"))
     //data
     implementation(project(":data:data-coin"))

@@ -21,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.android.domain_coin.model.coin_detail.toMapCoinInfo
 import com.example.feature_coin.coin_detail.CoinDetailScreenState
+import com.example.feature_coin.coin_detail.data.toMapCoinInfo
 import com.example.feature_coin.coin_list.CoinListItem
 import com.example.feature_coin.coin_list.CoinListScreenState
 

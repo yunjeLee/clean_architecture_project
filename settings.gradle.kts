@@ -24,7 +24,6 @@ rootProject.name = "Clean Architecture Project"
 include(
     ":app",
     ":common:common-model",
-    ":common:common-coin-detail-model",
     ":common:common-util",
     ":data:data-coin",
     ":di:di-stock",
