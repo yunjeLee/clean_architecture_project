@@ -14,9 +14,6 @@ import javax.inject.Inject
 class GetCoinDetailUseCase @Inject constructor(
     private val repository: CoinRepository
 ) {
-//    suspend operator fun invoke(coinId: String): Result<CoinDetailModel> =
-//        repository.getCoinById(coinId)
-
     suspend operator fun invoke(coinId: String): CoinDetailModel {
         return when(val response = repository.getCoinById(coinId)) {
             is Result.Success -> {

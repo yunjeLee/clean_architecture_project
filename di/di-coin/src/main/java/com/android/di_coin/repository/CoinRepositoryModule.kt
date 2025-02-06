@@ -3,6 +3,7 @@ package com.android.di_coin.repository
 import com.android.data_coin.repository.CoinRepositoryImpl
 import com.android.data_coin.service.CoinApi
 import com.android.domain_coin.repository.CoinRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,9 +12,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CoinRepository {
-    @Provides
+abstract class CoinRepositoryModule() {
+    @Binds
     @Singleton
-    fun provideCoinRepository(coinApi: CoinApi): CoinRepository =
-        CoinRepositoryImpl(coinApi)
+    abstract fun provideCoinRepository(impl: CoinRepositoryImpl): CoinRepository
 }
